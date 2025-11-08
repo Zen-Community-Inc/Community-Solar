@@ -1,0 +1,140 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DIRECT_URL")
+}
+
+// Better Auth Models (required by better-auth)
+model user {
+  id            String    @id
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  name          String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  image         String?
+
+  accounts      account[]
+  sessions      session[]
+}
+
+model session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      user     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model account {
+  id                String  @id
+  accountId         String
+  providerId        String
+  userId            String
+  accessToken       String?
+  refreshToken      String?
+  idToken           String?
+  accessTokenExpiresAt DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope             String?
+  password          String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              user     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([identifier, value])
+}
+
+// Our custom Lead model that references Better Auth user
+
+model Lead {
+  id        String   @id @default(cuid())
+  userId    String   @unique // References Better Auth user
+
+  // Step 1: Basic Information
+  firstName       String
+  lastName        String
+  email           String
+  phoneNumber     String
+
+  // Step 2: Service Location
+  serviceAddress  String
+  city            String
+  state           String
+
+  // Step 3: Utility & Benefits
+  electricUtilityProvider   String
+  governmentBenefitProgram  String?
+
+  // Onboarding tracking
+  onboardingCompleted Boolean @default(false)
+  onboardingStep      Int     @default(1)
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  bills     Bill[]
+
+  @@index([userId])
+  @@index([email])
+}
+
+model Bill {
+  id        String   @id @default(cuid())
+  leadId    String
+
+  // File information
+  fileName      String
+  fileUrl       String    // Supabase Storage URL
+  fileSize      Int       // in bytes
+  mimeType      String
+
+  // Metadata
+  monthYear     String?   // e.g., "2024-01" for January 2024
+  uploadedAt    DateTime  @default(now())
+
+  // OCR extracted data (optional, for future)
+  extractedKwh    Float?
+  extractedAmount Float?
+
+  // Status tracking
+  status    BillStatus @default(PENDING)
+
+  // Relations
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@index([leadId])
+  @@index([uploadedAt])
+}
+
+enum BillStatus {
+  PENDING
+  PROCESSED
+  FAILED
+}

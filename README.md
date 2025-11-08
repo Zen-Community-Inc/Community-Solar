@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Zen Community Solar - Next.js Website
 
-## Getting Started
+A modern, full-featured community solar enrollment platform built with Next.js 14, TypeScript, and Tailwind CSS. This is a complete Next.js translation of the original React/Vite application.
 
-First, run the development server:
+## 🚀 Quick Start
 
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Features Implemented
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Public Pages
+- ✅ Home page with hero, stats, features, and CTAs
+- ✅ About page with mission and coverage areas
+- ✅ Projects page with solar farm portfolio
+- ✅ FAQs page with categorized accordion
+- ✅ Contact page with form
+- ✅ Privacy Policy and Terms & Conditions
 
-## Learn More
+### Authentication System
+- ✅ ZIP code eligibility checker
+- ✅ Sign in with email/password
+- ✅ Sign up with full registration
+- ✅ Mock authentication with localStorage
+- ✅ Role-based access control (user/admin)
 
-To learn more about Next.js, take a look at the following resources:
+### User Features
+- ✅ 2-step onboarding wizard (document upload + address)
+- ✅ User dashboard with enrollment status
+- ✅ Profile editing
+- ✅ Admin notes display
+- ✅ Color-coded status badges
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Admin Panel
+- ✅ View all enrollments
+- ✅ Review applications
+- ✅ Approve/reject/request resubmit
+- ✅ Statistics dashboard
+- ✅ Admin notes management
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🎨 Design System
 
-## Deploy on Vercel
+- **Accent Color**: Yellow/gold (`hsl(48 96% 58%)`)
+- **Font**: Inter from Google Fonts
+- **Components**: 15+ shadcn/ui components
+- **Responsive**: Mobile-first design
+- **Accessibility**: Touch-friendly 44px minimum heights
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠 Tech Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js 14 (App Router)
+- TypeScript
+- Tailwind CSS 4
+- shadcn/ui components
+- React Context API
+- Mock data with localStorage
+
+## 🧪 Demo Accounts
+
+**Regular User:**
+- Email: john@example.com
+- Password: any password
+
+**Admin User:**
+- Email: admin@zencommunity.solar
+- Password: any password
+
+## 📁 Key Files
+
+- `app/` - All pages and routes
+- `components/Layout.tsx` - Header/footer wrapper
+- `lib/auth-context.tsx` - Authentication provider
+- `lib/api.ts` - Mock API functions
+- `lib/mock-data.ts` - Sample data
+- `lib/types.ts` - TypeScript definitions
+
+## 🚀 Deployment
+
+Deploy to Vercel:
+```bash
+vercel deploy --prod
+```
+
+Or deploy to any platform supporting Next.js (Netlify, AWS Amplify, Railway, etc.)
+
+## 📝 Next Steps
+
+- [ ] Replace mock authentication with real Supabase
+- [ ] Implement file upload to cloud storage
+- [ ] Add email notifications
+- [ ] Integrate Stripe for billing
+- [ ] Add analytics tracking
+
+## 📞 Support
+
+The application is fully functional with mock data and ready for production database integration.
+
+Built with Next.js, TypeScript, and Tailwind CSS ⚡
