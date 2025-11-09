@@ -32,7 +32,7 @@ export const siteConfig = {
     social: {
       facebook: "https://web.facebook.com/profile.php?id=61582442685007",
       instagram: "https://www.instagram.com/zendirect2025/",
-      linkdn:"",
+      linkedin:"",
       twitter: "",
     },
   },
