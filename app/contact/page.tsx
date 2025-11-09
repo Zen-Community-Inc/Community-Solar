@@ -16,6 +16,7 @@ import {
 import { Mail, Phone, MapPin, Clock, Building2, CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { siteConfig } from "@/lib/site-config";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -28,21 +29,44 @@ export default function Contact() {
     bill: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Contact form submitted:", formData);
-    toast.success("Thank you! We'll be in touch within 24 hours.");
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      company: "",
-      address: "",
-      utility: "",
-      bill: "",
-      message: "",
-    });
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("/api/webhooks/contact-submitted", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit contact form");
+      }
+
+      toast.success("Thank you! We'll be in touch within 24 hours.");
+      setIsSubmitted(true);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        address: "",
+        utility: "",
+        bill: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Contact form submission error:", error);
+      toast.error("Something went wrong. Please try again or email us directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -83,19 +107,19 @@ export default function Contact() {
                 {
                   icon: Mail,
                   title: "Email",
-                  value: "info@mx.zencommunitysolar.com",
-                  href: "mailto:info@mx.zencommunitysolar.com",
+                  value: siteConfig.contact.email.general,
+                  href: `mailto:${siteConfig.contact.email.general}`,
                 },
                 {
                   icon: Phone,
                   title: "Phone",
-                  value: "(+1) 917-764-3897",
-                  href: "tel:+19177643897",
+                  value: siteConfig.contact.phone.display,
+                  href: `tel:${siteConfig.contact.phone.raw}`,
                 },
                 {
                   icon: MapPin,
                   title: "Office",
-                  value: "Miramar Beach, Florida",
+                  value: siteConfig.contact.address.full,
                   href: null,
                 },
                 {
@@ -132,11 +156,30 @@ export default function Contact() {
             <div className="grid lg:grid-cols-3 gap-8">
               <Card className="lg:col-span-2 border-0 shadow-lg">
                 <CardContent className="pt-6 sm:pt-8 px-4 sm:px-6">
-                  <div className="mb-6">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Send Us a Message</h2>
-                    <p className="text-gray-600">Fill out the form below and we&apos;ll get back to you soon.</p>
-                  </div>
-                  <form onSubmit={handleSubmit} className="space-y-5">
+                  {isSubmitted ? (
+                    <div className="py-12 text-center">
+                      <div className="flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mx-auto mb-4">
+                        <CheckCircle className="h-8 w-8 text-green-600" />
+                      </div>
+                      <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Message Sent!</h2>
+                      <p className="text-gray-600 mb-6">
+                        Thank you for contacting us. We&apos;ve received your message and will respond within 24 hours.
+                      </p>
+                      <Button
+                        onClick={() => setIsSubmitted(false)}
+                        variant="outline"
+                        className="mt-4"
+                      >
+                        Send Another Message
+                      </Button>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="mb-6">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Send Us a Message</h2>
+                        <p className="text-gray-600">Fill out the form below and we&apos;ll get back to you soon.</p>
+                      </div>
+                      <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="grid md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="name">Full Name <span className="text-red-500">*</span></Label>
@@ -217,8 +260,11 @@ export default function Contact() {
                             <SelectValue placeholder="Select utility" />
                           </SelectTrigger>
                           <SelectContent className="bg-white">
-                            <SelectItem value="comed">ComEd</SelectItem>
-                            <SelectItem value="ameren">Ameren Illinois</SelectItem>
+                            {siteConfig.service.utilities.map((utility) => (
+                              <SelectItem key={utility} value={utility.toLowerCase().replace(/\s+/g, '-')}>
+                                {utility}
+                              </SelectItem>
+                            ))}
                             <SelectItem value="other">Other</SelectItem>
                           </SelectContent>
                         </Select>
@@ -253,11 +299,14 @@ export default function Contact() {
                     <Button
                       type="submit"
                       size="lg"
-                      className="w-full bg-yellow-300 hover:bg-yellow-400 text-gray-900 font-semibold shadow-lg h-12"
+                      disabled={isSubmitting}
+                      className="w-full bg-yellow-300 hover:bg-yellow-400 text-gray-900 font-semibold shadow-lg h-12 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Send Message
+                      {isSubmitting ? "Sending..." : "Send Message"}
                     </Button>
                   </form>
+                    </>
+                  )}
                 </CardContent>
               </Card>
 

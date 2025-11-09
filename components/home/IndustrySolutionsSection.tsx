@@ -49,7 +49,7 @@ export default function IndustrySolutionsSection() {
                 ))}
               </ul>
               <Button asChild className="w-full mt-6" variant="outline">
-                <Link href="/contact">Learn more</Link>
+                <Link href="/contact">Contact us</Link>
               </Button>
             </CardContent>
           </Card>

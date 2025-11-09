@@ -119,6 +119,47 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    // Get all bills for the lead (limit to 3 most recent)
+    const allBills = await prisma.bill.findMany({
+      where: { leadId: lead.id },
+      orderBy: { uploadedAt: "desc" },
+      take: 3,
+    });
+
+    const billsInfo = allBills.map((bill, index) => ({
+      fileName: bill.fileName,
+      fileUrl: bill.fileUrl,
+      fileSize: bill.fileSize,
+      mimeType: bill.mimeType,
+      index: index + 1,
+    }));
+
+    // Trigger webhook for new bill upload (fire and forget)
+    fetch(process.env.NEXT_PUBLIC_APP_URL + "/api/webhooks/lead-submitted", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        event: "bill.uploaded",
+        completed: true,
+        currentStep: null,
+        userId: lead.userId,
+        firstName: lead.firstName,
+        lastName: lead.lastName,
+        middleInitial: null,
+        email: lead.email,
+        phoneNumber: lead.phoneNumber,
+        serviceAddress: lead.serviceAddress,
+        city: lead.city,
+        state: lead.state,
+        electricUtilityProvider: lead.electricUtilityProvider,
+        governmentBenefitProgram: lead.governmentBenefitProgram,
+        billCount: allBills.length,
+        bills: billsInfo,
+      }),
+    }).catch((error) => {
+      console.error("Failed to send bill upload webhook:", error);
+    });
+
     return NextResponse.json({
       success: true,
       fileUrl: publicUrl,

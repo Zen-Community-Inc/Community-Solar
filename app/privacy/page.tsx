@@ -1,26 +1,53 @@
 import Layout from "@/components/Layout";
+import { Shield, Lock, Eye, FileText, Users, Bell } from "lucide-react";
+import { siteConfig } from "@/lib/site-config";
 
 export default function Privacy() {
   return (
     <Layout>
-      <div className="min-h-screen py-20 max-w-4xl mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
-        <div className="prose prose-lg max-w-none space-y-6 text-muted-foreground">
-          <p className="text-sm text-muted-foreground">
-            <strong>Last Updated:</strong> January 2025
+      {/* Hero Section */}
+      <section className="relative py-16 sm:py-20 bg-gradient-to-br from-yellow-50/80 via-white to-yellow-50/50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center justify-center w-12 h-12 bg-yellow-100 rounded-lg">
+              <Shield className="h-6 w-6 text-yellow-600" />
+            </div>
+            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900">Privacy Policy</h1>
+          </div>
+          <p className="text-lg text-gray-600 max-w-2xl">
+            Your privacy matters to us. Learn how we collect, use, and protect your personal information.
           </p>
+          <p className="text-sm text-gray-500 mt-4">
+            <strong>Last Updated:</strong> {siteConfig.legal.lastUpdated}
+          </p>
+        </div>
+      </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Introduction</h2>
+      {/* Content */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+        <div className="prose prose-lg max-w-none space-y-6 text-muted-foreground">
+
+          <section className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center justify-center w-10 h-10 bg-yellow-100 rounded-lg">
+                <FileText className="h-5 w-5 text-yellow-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-foreground">Introduction</h2>
+            </div>
             <p>
-              Zen Community Solar (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy.
+              {siteConfig.company.name} (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy.
               This Privacy Policy explains how we collect, use, disclose, and safeguard your
               information when you visit our website or use our services.
             </p>
           </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Information We Collect</h2>
+          <section className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center justify-center w-10 h-10 bg-yellow-100 rounded-lg">
+                <Eye className="h-5 w-5 text-yellow-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-foreground">Information We Collect</h2>
+            </div>
             <h3 className="text-xl font-semibold text-foreground mb-2">Personal Information</h3>
             <p>We may collect personal information that you provide to us, including:</p>
             <ul className="list-disc pl-6 space-y-2">
@@ -43,8 +70,13 @@ export default function Privacy() {
             </ul>
           </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">How We Use Your Information</h2>
+          <section className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center justify-center w-10 h-10 bg-yellow-100 rounded-lg">
+                <FileText className="h-5 w-5 text-yellow-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-foreground">How We Use Your Information</h2>
+            </div>
             <p>We use the information we collect to:</p>
             <ul className="list-disc pl-6 space-y-2">
               <li>Process your enrollment in our community solar program</li>
@@ -57,8 +89,13 @@ export default function Privacy() {
             </ul>
           </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Information Sharing</h2>
+          <section className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center justify-center w-10 h-10 bg-yellow-100 rounded-lg">
+                <Users className="h-5 w-5 text-yellow-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-foreground">Information Sharing</h2>
+            </div>
             <p>
               We do not sell your personal information. We may share your information with:
             </p>
@@ -79,8 +116,13 @@ export default function Privacy() {
             </ul>
           </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Data Security</h2>
+          <section className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center justify-center w-10 h-10 bg-yellow-100 rounded-lg">
+                <Lock className="h-5 w-5 text-yellow-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-foreground">Data Security</h2>
+            </div>
             <p>
               We implement appropriate technical and organizational measures to protect your
               personal information against unauthorized access, alteration, disclosure, or
@@ -88,8 +130,13 @@ export default function Privacy() {
             </p>
           </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Your Rights</h2>
+          <section className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center justify-center w-10 h-10 bg-yellow-100 rounded-lg">
+                <Shield className="h-5 w-5 text-yellow-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-foreground">Your Rights</h2>
+            </div>
             <p>You have the right to:</p>
             <ul className="list-disc pl-6 space-y-2">
               <li>Access and review the personal information we hold about you</li>
@@ -100,8 +147,13 @@ export default function Privacy() {
             </ul>
           </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Cookies and Tracking</h2>
+          <section className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center justify-center w-10 h-10 bg-yellow-100 rounded-lg">
+                <Eye className="h-5 w-5 text-yellow-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-foreground">Cookies and Tracking</h2>
+            </div>
             <p>
               We use cookies and similar tracking technologies to enhance your browsing experience,
               analyze website traffic, and understand user preferences. You can control cookie
@@ -109,16 +161,26 @@ export default function Privacy() {
             </p>
           </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Children&apos;s Privacy</h2>
+          <section className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center justify-center w-10 h-10 bg-yellow-100 rounded-lg">
+                <Shield className="h-5 w-5 text-yellow-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-foreground">Children&apos;s Privacy</h2>
+            </div>
             <p>
               Our services are not directed to individuals under 18 years of age. We do not
               knowingly collect personal information from children.
             </p>
           </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Changes to This Policy</h2>
+          <section className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center justify-center w-10 h-10 bg-yellow-100 rounded-lg">
+                <Bell className="h-5 w-5 text-yellow-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-foreground">Changes to This Policy</h2>
+            </div>
             <p>
               We may update this Privacy Policy from time to time. We will notify you of any
               material changes by posting the new policy on this page and updating the &quot;Last
@@ -126,13 +188,27 @@ export default function Privacy() {
             </p>
           </section>
 
-          <section>
-            <h2 className="text-2xl font-bold text-foreground mb-4">Contact Us</h2>
-            <p>If you have questions about this Privacy Policy, please contact us:</p>
-            <ul className="list-none space-y-2">
-              <li>Email: privacy@zencommunity.solar</li>
-              <li>Phone: (312) 555-0100</li>
-              <li>Address: Chicago, IL</li>
+          <section className="bg-gradient-to-br from-yellow-50 to-yellow-100/50 rounded-2xl p-6 sm:p-8 border border-yellow-200 shadow-sm">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center justify-center w-10 h-10 bg-yellow-200 rounded-lg">
+                <Bell className="h-5 w-5 text-yellow-700" />
+              </div>
+              <h2 className="text-2xl font-bold text-foreground">Contact Us</h2>
+            </div>
+            <p className="mb-4">If you have questions about this Privacy Policy, please contact us:</p>
+            <ul className="list-none space-y-3">
+              <li className="flex items-center gap-2">
+                <span className="text-yellow-600">✉</span>
+                <strong>Email:</strong> <a href={`mailto:${siteConfig.contact.email.general}`} className="text-yellow-600 hover:underline">{siteConfig.contact.email.general}</a>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-yellow-600">📞</span>
+                <strong>Phone:</strong> <a href={`tel:${siteConfig.contact.phone.raw}`} className="text-yellow-600 hover:underline">{siteConfig.contact.phone.display}</a>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-yellow-600">📍</span>
+                <strong>Address:</strong> {siteConfig.contact.address.full}
+              </li>
             </ul>
           </section>
         </div>

@@ -36,7 +36,14 @@ export async function GET() {
       },
     };
 
-    const zapierWebhookUrl = "https://hooks.zapier.com/hooks/catch/24679533/useup0p/";
+    const zapierWebhookUrl = process.env.ZAPIER_WEBHOOK_URL;
+
+    if (!zapierWebhookUrl) {
+      return NextResponse.json(
+        { error: "ZAPIER_WEBHOOK_URL not configured" },
+        { status: 500 }
+      );
+    }
 
     const response = await fetch(zapierWebhookUrl, {
       method: "POST",

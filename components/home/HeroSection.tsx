@@ -47,24 +47,17 @@ export default function HeroSection() {
               onClick={() => setSignInModalOpen(true)}
               className="rounded-md shadow-lg h-14 text-base px-8 text-accent-foreground bg-yellow-300 hover:bg-yellow-400/60"
             >
-              Join now
+              Get started
             </Button>
             <Link href="/contact">
               <Button
                 size="lg"
-                className="rounded-md shadow-lg h-14 text-base px-8 text-accent-foreground bg-yellow-300 hover:bg-yellow-400/60"
+                variant="outline"
+                className="rounded-md shadow-lg h-14 text-base px-8 bg-white hover:bg-gray-50 backdrop-blur-sm text-foreground border-2"
               >
-                Request a business quote
+                Contact us
               </Button>
             </Link>
-            <a href="#how-it-works">
-              <Button
-                size="lg"
-                className="rounded-md h-14 text-base px-8 bg-white hover:bg-white/60 backdrop-blur-sm text-foreground"
-              >
-                Learn more
-              </Button>
-            </a>
           </div>
 
           {/* Rating */}

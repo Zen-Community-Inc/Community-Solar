@@ -57,6 +57,41 @@ export async function PATCH(request: NextRequest) {
       },
     });
 
+    // Prepare bills info for webhook (limit to 3 most recent)
+    const billsInfo = updatedLead.bills.slice(0, 3).map((bill, index) => ({
+      fileName: bill.fileName,
+      fileUrl: bill.fileUrl,
+      fileSize: bill.fileSize,
+      mimeType: bill.mimeType,
+      index: index + 1,
+    }));
+
+    // Trigger webhook for lead update (don't await - fire and forget)
+    fetch(process.env.NEXT_PUBLIC_APP_URL + "/api/webhooks/lead-submitted", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        event: "lead.updated",
+        completed: true,
+        currentStep: null,
+        userId: updatedLead.userId,
+        firstName: updatedLead.firstName,
+        lastName: updatedLead.lastName,
+        middleInitial: null, // Not stored in Lead model
+        email: updatedLead.email,
+        phoneNumber: updatedLead.phoneNumber,
+        serviceAddress: updatedLead.serviceAddress,
+        city: updatedLead.city,
+        state: updatedLead.state,
+        electricUtilityProvider: updatedLead.electricUtilityProvider,
+        governmentBenefitProgram: updatedLead.governmentBenefitProgram,
+        billCount: updatedLead.bills.length,
+        bills: billsInfo,
+      }),
+    }).catch((error) => {
+      console.error("Failed to send update webhook:", error);
+    });
+
     return NextResponse.json({
       lead: updatedLead,
     });

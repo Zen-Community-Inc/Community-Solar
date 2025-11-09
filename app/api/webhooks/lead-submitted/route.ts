@@ -46,22 +46,20 @@ export async function POST(request: NextRequest) {
       },
     };
 
-    // Primary Zapier webhook URL
-    const zapierWebhookUrl = "https://hooks.zapier.com/hooks/catch/24679533/useup0p/";
-
-    // Additional webhook URLs from environment variables (optional)
-    const additionalWebhookUrls = [
+    // Get webhook URLs from environment variables
+    const webhookUrls = [
+      process.env.ZAPIER_WEBHOOK_URL,
       process.env.MAKE_WEBHOOK_URL,
-      process.env.ZAPIER_WEBHOOK_URL, // Backup if you want to store in env
-    ].filter(Boolean);
+    ].filter(Boolean) as string[];
 
-    // Combine all webhook URLs
-    const allWebhookUrls = [zapierWebhookUrl, ...additionalWebhookUrls];
+    // Skip if no webhooks configured
+    if (webhookUrls.length === 0) {
+      console.warn("No webhook URLs configured");
+      return NextResponse.json({ success: true, skipped: true });
+    }
 
     // Send to all webhook URLs
-    const webhookPromises = allWebhookUrls.map((url) => {
-      if (!url) return Promise.resolve(null);
-
+    const webhookPromises = webhookUrls.map((url: string) => {
       return fetch(url, {
         method: "POST",
         headers: {
