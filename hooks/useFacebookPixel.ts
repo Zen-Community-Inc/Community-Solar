@@ -52,17 +52,21 @@ export function useFacebookPixel() {
 
     // Add first-touch attribution
     if (firstTouch) {
-      customData.first_touch_source = firstTouch.params.utm_source || null;
-      customData.first_touch_medium = firstTouch.params.utm_medium || null;
-      customData.first_touch_campaign = firstTouch.params.utm_campaign || null;
+      // Handle both old format (direct params) and new format (params wrapper)
+      const params = firstTouch.params || firstTouch;
+      customData.first_touch_source = params.utm_source || null;
+      customData.first_touch_medium = params.utm_medium || null;
+      customData.first_touch_campaign = params.utm_campaign || null;
       customData.first_touch_timestamp = firstTouch.timestamp;
     }
 
     // Add last-touch attribution
     if (lastTouch) {
-      customData.last_touch_source = lastTouch.params.utm_source || null;
-      customData.last_touch_medium = lastTouch.params.utm_medium || null;
-      customData.last_touch_campaign = lastTouch.params.utm_campaign || null;
+      // Handle both old format (direct params) and new format (params wrapper)
+      const params = lastTouch.params || lastTouch;
+      customData.last_touch_source = params.utm_source || null;
+      customData.last_touch_medium = params.utm_medium || null;
+      customData.last_touch_campaign = params.utm_campaign || null;
       customData.last_touch_timestamp = lastTouch.timestamp;
     }
 

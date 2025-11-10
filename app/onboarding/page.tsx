@@ -57,6 +57,15 @@ export default function Onboarding() {
     setIsCheckingLead(true);
     try {
       const response = await fetch("/api/lead");
+
+      // Handle 404 gracefully - user hasn't completed onboarding yet
+      if (response.status === 404) {
+        if (process.env.NODE_ENV === 'development') {
+          console.log('No existing lead found, showing onboarding form');
+        }
+        return;
+      }
+
       if (response.ok) {
         const data = await response.json();
         if (data.lead?.onboardingCompleted) {
@@ -66,8 +75,10 @@ export default function Onboarding() {
         }
       }
     } catch (error) {
-      // If error (404), user hasn't completed onboarding, continue
-      console.log(`No existing lead found, showing onboarding ${error}`);
+      // Network or other errors, continue to show onboarding
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Error checking lead status, showing onboarding:', error);
+      }
     } finally {
       setIsCheckingLead(false);
     }
@@ -94,8 +105,16 @@ export default function Onboarding() {
 
   // Function to send partial data to webhook
   const sendPartialData = useCallback(
-    async (step: number) => {
-      if (!session?.user?.id || partialDataSentRef.current) return;
+    async (step: number, useBeacon = false) => {
+      if (!session?.user?.id || partialDataSentRef.current) {
+        if (process.env.NODE_ENV === 'development') {
+          console.log('[Onboarding] Partial submission skipped:', {
+            hasSession: !!session?.user?.id,
+            alreadySent: partialDataSentRef.current,
+          });
+        }
+        return;
+      }
 
       try {
         const partialData = {
@@ -105,7 +124,12 @@ export default function Onboarding() {
         };
 
         // Only send if we have at least some data
-        if (Object.keys(partialData).length === 0) return;
+        if (Object.keys(partialData).length === 0) {
+          if (process.env.NODE_ENV === 'development') {
+            console.log('[Onboarding] Partial submission skipped: No data filled');
+          }
+          return;
+        }
 
         // Prepare basic bill info (file names only for partial data)
         const billsInfo = billFiles.map((file, index) => ({
@@ -115,23 +139,48 @@ export default function Onboarding() {
           index: index + 1,
         }));
 
-        await fetch("/api/webhooks/lead-submitted", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            event: "lead.partial",
-            completed: false,
-            currentStep: step,
-            userId: session.user.id,
-            ...partialData,
-            billCount: billFiles.length,
-            bills: billsInfo,
-            // UTM tracking data
-            ...utms,
-            utm_first_touch: firstTouch,
-            utm_last_touch: lastTouch,
-          }),
-        });
+        const payload = {
+          event: "lead.partial",
+          completed: false,
+          currentStep: step,
+          userId: session.user.id,
+          ...partialData,
+          billCount: billFiles.length,
+          bills: billsInfo,
+          // UTM tracking data
+          ...utms,
+          utm_first_touch: firstTouch,
+          utm_last_touch: lastTouch,
+        };
+
+        if (process.env.NODE_ENV === 'development') {
+          console.log('[Onboarding] Sending partial submission:', {
+            step,
+            dataKeys: Object.keys(partialData),
+            utms,
+            firstTouch,
+            lastTouch,
+            useBeacon,
+          });
+        }
+
+        // Use sendBeacon for page unload (more reliable) or fetch for visibility change
+        if (useBeacon && navigator.sendBeacon) {
+          const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+          navigator.sendBeacon("/api/webhooks/lead-submitted", blob);
+          if (process.env.NODE_ENV === 'development') {
+            console.log('[Onboarding] Partial data sent via sendBeacon');
+          }
+        } else {
+          await fetch("/api/webhooks/lead-submitted", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          if (process.env.NODE_ENV === 'development') {
+            console.log('[Onboarding] Partial data sent via fetch');
+          }
+        }
 
         // Track Facebook Pixel Lead event (partial)
         trackLead({
@@ -158,13 +207,19 @@ export default function Onboarding() {
           Object.keys(step2Data).length > 0 ||
           Object.keys(step3Data).length > 0)
       ) {
-        sendPartialData(currentStep);
+        if (process.env.NODE_ENV === 'development') {
+          console.log('[Onboarding] beforeunload triggered, sending partial data');
+        }
+        sendPartialData(currentStep, true); // Use sendBeacon for beforeunload
       }
     };
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === "hidden") {
-        sendPartialData(currentStep);
+        if (process.env.NODE_ENV === 'development') {
+          console.log('[Onboarding] visibilitychange (hidden) triggered, sending partial data');
+        }
+        sendPartialData(currentStep, false); // Use fetch for visibility change
       }
     };
 
@@ -281,22 +336,32 @@ export default function Onboarding() {
       }));
 
       // Trigger webhook for Zapier - COMPLETED FORM
+      const webhookPayload = {
+        event: "lead.completed",
+        completed: true,
+        currentStep: 5,
+        ...onboardingData,
+        userId: session.user.id,
+        billCount: billFiles.length,
+        bills: billsInfo,
+        // UTM tracking data
+        ...utms,
+        utm_first_touch: firstTouch,
+        utm_last_touch: lastTouch,
+      };
+
+      if (process.env.NODE_ENV === 'development') {
+        console.log('[Onboarding] Submitting to webhook with UTM data:', {
+          utms,
+          firstTouch,
+          lastTouch,
+        });
+      }
+
       await fetch("/api/webhooks/lead-submitted", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          event: "lead.completed",
-          completed: true,
-          currentStep: 5,
-          ...onboardingData,
-          userId: session.user.id,
-          billCount: billFiles.length,
-          bills: billsInfo,
-          // UTM tracking data
-          ...utms,
-          utm_first_touch: firstTouch,
-          utm_last_touch: lastTouch,
-        }),
+        body: JSON.stringify(webhookPayload),
       });
 
       // Track Facebook Pixel CompleteRegistration event

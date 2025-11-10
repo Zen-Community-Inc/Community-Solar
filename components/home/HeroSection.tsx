@@ -5,14 +5,17 @@ import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import SignInModal from "@/components/SignInModal";
+import { siteConfig } from "@/lib/site-config";
+import { homeContent } from "@/lib/content/home-content";
 
 export default function HeroSection() {
   const [signInModalOpen, setSignInModalOpen] = useState(false);
+
   return (
     <section className="relative w-full min-h-[600px] sm:min-h-[650px] lg:min-h-[700px] flex items-center overflow-hidden">
       <Image
-        src="/assets/hero-solar.jpg"
-        alt="Community solar panels with residential and commercial buildings"
+        src={homeContent.hero.image.src}
+        alt={homeContent.hero.image.alt}
         fill
         className="absolute inset-0 w-full h-full object-cover brightness-75"
         priority
@@ -25,19 +28,18 @@ export default function HeroSection() {
           {/* Trust Badge */}
           <div className="inline-flex items-center gap-2 bg-yellow-300/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
             <span className="text-sm font-medium text-foreground">
-              Trusted by 10,000+ subscribers
+              {homeContent.hero.badge}
             </span>
           </div>
 
           {/* Headline */}
           <h1 className="text-[2rem] font-bold sm:text-5xl lg:text-6xl xl:text-7xl text-gray-900 mb-6 tracking-tight">
-            Lower your operating costs with local community solar
+            {homeContent.hero.headline}
           </h1>
 
           {/* Subheadline */}
           <p className="text-lg sm:text-xl lg:text-2xl text-gray-800 mb-8 max-w-xl">
-            Enroll your properties or business accounts to receive utility
-            bill credits—no rooftop installs, no CapEx, month‑to‑month terms.
+            {homeContent.hero.subheadline}
           </p>
 
           {/* CTAs */}
@@ -47,15 +49,15 @@ export default function HeroSection() {
               onClick={() => setSignInModalOpen(true)}
               className="rounded-md shadow-lg h-14 text-base px-8 text-accent-foreground bg-yellow-300 hover:bg-yellow-400/60"
             >
-              Get started
+              {homeContent.hero.primaryButton.text}
             </Button>
-            <Link href="/contact">
+            <Link href={homeContent.hero.secondaryButton.href}>
               <Button
                 size="lg"
                 variant="outline"
                 className="rounded-md shadow-lg h-14 text-base px-8 bg-white hover:bg-gray-50 backdrop-blur-sm text-foreground border-2"
               >
-                Contact us
+                {homeContent.hero.secondaryButton.text}
               </Button>
             </Link>
           </div>
@@ -74,7 +76,7 @@ export default function HeroSection() {
               ))}
             </div>
             <span className="text-gray-700 font-medium">
-              4.8/5 from 1,200+ reviews
+              {siteConfig.stats.rating}/5 from {siteConfig.stats.reviewCount} reviews
             </span>
           </div>
         </div>

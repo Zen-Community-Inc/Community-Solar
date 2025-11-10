@@ -2,11 +2,17 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 /**
- * Proxy Configuration
+ * Next.js Middleware
  *
  * Handles:
  * 1. Authentication redirects for protected routes
- * 2. UTM parameter tracking and persistence
+ * 2. UTM parameter tracking and persistence (first-touch and last-touch attribution)
+ *
+ * This middleware runs on every request (except static assets) and:
+ * - Captures UTM parameters from URL query strings
+ * - Stores them in cookies for 30 days
+ * - Tracks first-touch attribution (never overwrites)
+ * - Tracks last-touch attribution (always updates)
  */
 
 // UTM parameters to track
@@ -31,7 +37,7 @@ const COOKIE_OPTIONS = {
   secure: process.env.NODE_ENV === 'production',
 };
 
-export async function proxy(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
 
   // Initialize response
@@ -84,6 +90,11 @@ export async function proxy(request: NextRequest) {
   if (hasUtmParams) {
     const timestamp = Date.now().toString();
 
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[Proxy] UTM parameters detected:', utmData);
+      console.log('[Proxy] Setting UTM cookies with 30-day expiration');
+    }
+
     // Set individual UTM cookies for easy access
     Object.entries(utmData).forEach(([key, value]) => {
       response.cookies.set(key, value, COOKIE_OPTIONS);
@@ -93,17 +104,23 @@ export async function proxy(request: NextRequest) {
     if (!request.cookies.get('utm_first_touch')) {
       response.cookies.set(
         'utm_first_touch',
-        JSON.stringify({ ...utmData, timestamp }),
+        JSON.stringify({ params: utmData, timestamp }),
         COOKIE_OPTIONS
       );
+      if (process.env.NODE_ENV === 'development') {
+        console.log('[Proxy] First-touch attribution set:', { params: utmData, timestamp });
+      }
     }
 
     // Last-touch attribution: Always update with latest UTMs
     response.cookies.set(
       'utm_last_touch',
-      JSON.stringify({ ...utmData, timestamp }),
+      JSON.stringify({ params: utmData, timestamp }),
       COOKIE_OPTIONS
     );
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[Proxy] Last-touch attribution updated:', { params: utmData, timestamp });
+    }
   }
 
   return response;

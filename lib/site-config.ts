@@ -29,6 +29,10 @@ export const siteConfig = {
       stateFullName: "Florida",
       full: "Miramar, FL", // For display purposes
     },
+    hours: {
+      display: "Mon-Fri 9AM-6PM",
+      timezone: "EST",
+    },
     social: {
       facebook: "https://web.facebook.com/profile.php?id=61582442685007",
       instagram: "https://www.instagram.com/zendirect2025/",
@@ -59,12 +63,17 @@ export const siteConfig = {
   stats: {
     subscribers: "10,000+",
     energyGenerated: "18.9 million kWh",
+    energyGeneratedShort: "18.9M", // For display in stats sections
     co2Avoided: "13,400 metric tons",
+    co2AvoidedShort: "13.4K", // For display in stats sections
+    totalCapacity: "50+ MW",
+    satisfactionRate: "98%",
     reviewCount: "1,200+",
     rating: 4.8,
     savingsRange: {
       min: 10,
       max: 20,
+      display: "10–20%", // Formatted for UI
     },
   },
 
