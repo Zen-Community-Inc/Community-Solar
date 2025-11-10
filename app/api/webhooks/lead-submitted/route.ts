@@ -43,6 +43,18 @@ export async function POST(request: NextRequest) {
         bill3_fileUrl: bill3?.fileUrl || null,
         bill3_fileSize: bill3?.fileSize || null,
         bill3_mimeType: bill3?.mimeType || null,
+        // UTM tracking parameters
+        utm_source: body.utm_source || null,
+        utm_medium: body.utm_medium || null,
+        utm_campaign: body.utm_campaign || null,
+        utm_term: body.utm_term || null,
+        utm_content: body.utm_content || null,
+        utm_id: body.utm_id || null,
+        gclid: body.gclid || null,
+        fbclid: body.fbclid || null,
+        ref: body.ref || null,
+        utm_first_touch: body.utm_first_touch || null,
+        utm_last_touch: body.utm_last_touch || null,
       },
     };
 

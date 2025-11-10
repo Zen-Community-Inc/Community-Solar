@@ -155,13 +155,24 @@ export default function Dashboard() {
 
   const getStatusBadge = (status: Bill["status"]) => {
     const badges = {
-      PENDING: { text: "Processing", color: "bg-yellow-100 text-yellow-700 border-yellow-300" },
-      PROCESSED: { text: "Processed", color: "bg-green-100 text-green-700 border-green-300" },
-      FAILED: { text: "Failed", color: "bg-red-100 text-red-700 border-red-300" },
+      PENDING: {
+        text: "Processing",
+        color: "bg-yellow-100 text-yellow-700 border-yellow-300",
+      },
+      PROCESSED: {
+        text: "Processed",
+        color: "bg-green-100 text-green-700 border-green-300",
+      },
+      FAILED: {
+        text: "Failed",
+        color: "bg-red-100 text-red-700 border-red-300",
+      },
     };
     const badge = badges[status];
     return (
-      <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border ${badge.color}`}>
+      <span
+        className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border ${badge.color}`}
+      >
         {badge.text}
       </span>
     );
@@ -204,7 +215,7 @@ export default function Dashboard() {
               <Button
                 variant="outline"
                 onClick={handleSignOut}
-                className="border-2 hover:border-yellow-400 hover:bg-yellow-50"
+                className="border-2 border-gray-400 hover:border-yellow-400 hover:bg-yellow-50"
               >
                 <LogOut className="h-4 w-4 mr-2" />
                 Sign Out
@@ -346,7 +357,9 @@ export default function Dashboard() {
                   <div className="flex items-start gap-3">
                     <Mail className="h-5 w-5 text-gray-400 mt-0.5" />
                     <div className="flex-1">
-                      <dt className="text-sm font-medium text-gray-500">Email</dt>
+                      <dt className="text-sm font-medium text-gray-500">
+                        Email
+                      </dt>
                       <dd className="text-base text-gray-900 mt-1 font-medium break-all">
                         {lead.email}
                       </dd>
@@ -586,40 +599,55 @@ export default function Dashboard() {
             <CardContent className="pt-6">
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 <Link href="/faqs" className="block">
-                  <Button variant="outline" className="w-full border-2 hover:border-yellow-400 hover:bg-yellow-50 h-auto py-4 justify-start">
+                  <Button
+                    variant="outline"
+                    className="w-full border-2 border-gray-400 hover:border-yellow-400 hover:bg-yellow-50 h-auto py-4 justify-start"
+                  >
                     <div className="flex items-center gap-3">
                       <div className="flex items-center justify-center w-10 h-10 bg-yellow-100 rounded-lg">
                         <HelpCircle className="h-5 w-5 text-yellow-600" />
                       </div>
                       <div className="text-left">
                         <div className="font-semibold">View FAQs</div>
-                        <div className="text-xs text-gray-500">Get answers to common questions</div>
+                        <div className="text-xs text-gray-500">
+                          Get answers to common questions
+                        </div>
                       </div>
                     </div>
                   </Button>
                 </Link>
                 <Link href="/contact" className="block">
-                  <Button variant="outline" className="w-full border-2 hover:border-yellow-400 hover:bg-yellow-50 h-auto py-4 justify-start">
+                  <Button
+                    variant="outline"
+                    className="w-full border-2 border-gray-400 hover:border-yellow-400 hover:bg-yellow-50 h-auto py-4 justify-start"
+                  >
                     <div className="flex items-center gap-3">
                       <div className="flex items-center justify-center w-10 h-10 bg-yellow-100 rounded-lg">
                         <MessageSquare className="h-5 w-5 text-yellow-600" />
                       </div>
                       <div className="text-left">
                         <div className="font-semibold">Contact Support</div>
-                        <div className="text-xs text-gray-500">We&apos;re here to help</div>
+                        <div className="text-xs text-gray-500">
+                          We&apos;re here to help
+                        </div>
                       </div>
                     </div>
                   </Button>
                 </Link>
                 <Link href="/about" className="block">
-                  <Button variant="outline" className="w-full border-2 hover:border-yellow-400 hover:bg-yellow-50 h-auto py-4 justify-start">
+                  <Button
+                    variant="outline"
+                    className="w-full border-2 border-gray-400  hover:border-yellow-400 hover:bg-yellow-50 h-auto py-4 justify-start"
+                  >
                     <div className="flex items-center gap-3">
                       <div className="flex items-center justify-center w-10 h-10 bg-yellow-100 rounded-lg">
                         <User className="h-5 w-5 text-yellow-600" />
                       </div>
                       <div className="text-left">
                         <div className="font-semibold">About Us</div>
-                        <div className="text-xs text-gray-500">Learn more about our mission</div>
+                        <div className="text-xs text-gray-500">
+                          Learn more about our mission
+                        </div>
                       </div>
                     </div>
                   </Button>

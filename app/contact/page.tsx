@@ -17,8 +17,12 @@ import { Mail, Phone, MapPin, Clock, Building2, CheckCircle } from "lucide-react
 import { useState } from "react";
 import { toast } from "sonner";
 import { siteConfig } from "@/lib/site-config";
+import { useUTM } from "@/hooks/useUTM";
+import { useFacebookPixel } from "@/hooks/useFacebookPixel";
 
 export default function Contact() {
+  const { utms, firstTouch, lastTouch } = useUTM();
+  const { trackContact } = useFacebookPixel();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -42,12 +46,21 @@ export default function Contact() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          // UTM tracking data
+          ...utms,
+          utm_first_touch: firstTouch,
+          utm_last_touch: lastTouch,
+        }),
       });
 
       if (!response.ok) {
         throw new Error("Failed to submit contact form");
       }
+
+      // Track Facebook Pixel Contact event
+      trackContact({ content_name: 'Contact Form' });
 
       toast.success("Thank you! We'll be in touch within 24 hours.");
       setIsSubmitted(true);

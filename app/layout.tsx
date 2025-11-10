@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { Suspense } from "react";
+import { UTMProvider } from "@/components/providers/UTMProvider";
+import { FacebookPixelProvider } from "@/components/providers/FacebookPixelProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,8 +25,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        {children}
-        <Toaster />
+        <Suspense fallback={null}>
+          <UTMProvider>
+            <FacebookPixelProvider>
+              {children}
+              <Toaster />
+            </FacebookPixelProvider>
+          </UTMProvider>
+        </Suspense>
+
+        {/* GoHighLevel AI Chat Widget */}
+        <Script
+          src="https://widgets.leadconnectorhq.com/loader.js"
+          data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+          data-widget-id="690b8cab7907ec12811038fe"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );

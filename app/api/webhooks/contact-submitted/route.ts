@@ -17,6 +17,18 @@ export async function POST(request: NextRequest) {
         utility: body.utility || null,
         monthlyBill: body.bill || null,
         message: body.message || null,
+        // UTM tracking parameters
+        utm_source: body.utm_source || null,
+        utm_medium: body.utm_medium || null,
+        utm_campaign: body.utm_campaign || null,
+        utm_term: body.utm_term || null,
+        utm_content: body.utm_content || null,
+        utm_id: body.utm_id || null,
+        gclid: body.gclid || null,
+        fbclid: body.fbclid || null,
+        ref: body.ref || null,
+        utm_first_touch: body.utm_first_touch || null,
+        utm_last_touch: body.utm_last_touch || null,
       },
     };
 

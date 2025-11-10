@@ -3,6 +3,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
+import { useUTM } from "@/hooks/useUTM";
+import { useFacebookPixel } from "@/hooks/useFacebookPixel";
 import Layout from "@/components/Layout";
 import ProgressBar from "@/components/onboarding/ProgressBar";
 import Step1BasicInfo from "@/components/onboarding/Step1BasicInfo";
@@ -23,6 +25,8 @@ const TOTAL_STEPS = 5;
 export default function Onboarding() {
   const router = useRouter();
   const { data: session, isPending } = useSession();
+  const { utms, firstTouch, lastTouch } = useUTM();
+  const { trackLead, trackCompleteRegistration } = useFacebookPixel();
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -36,6 +40,9 @@ export default function Onboarding() {
   const partialDataSentRef = useRef(false);
   const completedDataSentRef = useRef(false);
 
+  // Track if we're checking for existing lead
+  const [isCheckingLead, setIsCheckingLead] = useState(true);
+
   // Check authentication and existing lead
   useEffect(() => {
     if (!isPending && !session) {
@@ -47,6 +54,7 @@ export default function Onboarding() {
   }, [session, isPending, router]);
 
   const checkExistingLead = async () => {
+    setIsCheckingLead(true);
     try {
       const response = await fetch("/api/lead");
       if (response.ok) {
@@ -54,12 +62,14 @@ export default function Onboarding() {
         if (data.lead?.onboardingCompleted) {
           // User already completed onboarding, redirect to dashboard
           router.push("/dashboard");
+          return; // Don't set isCheckingLead to false since we're redirecting
         }
       }
     } catch (error) {
       // If error (404), user hasn't completed onboarding, continue
-
       console.log(`No existing lead found, showing onboarding ${error}`);
+    } finally {
+      setIsCheckingLead(false);
     }
   };
 
@@ -69,6 +79,18 @@ export default function Onboarding() {
       setStep1Data((prev) => ({ ...prev, email: session.user.email }));
     }
   }, [session, step1Data.email]);
+
+  // Track when user lands on onboarding page (Lead initiated)
+  useEffect(() => {
+    if (session?.user) {
+      trackLead({
+        content_name: 'Onboarding Started',
+        status: 'initiated',
+      });
+    }
+    // Only fire once when user first lands on page
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session?.user?.id]);
 
   // Function to send partial data to webhook
   const sendPartialData = useCallback(
@@ -104,7 +126,18 @@ export default function Onboarding() {
             ...partialData,
             billCount: billFiles.length,
             bills: billsInfo,
+            // UTM tracking data
+            ...utms,
+            utm_first_touch: firstTouch,
+            utm_last_touch: lastTouch,
           }),
+        });
+
+        // Track Facebook Pixel Lead event (partial)
+        trackLead({
+          content_name: `Onboarding Partial - Step ${step}`,
+          status: 'partial',
+          value: 0, // No value for partial lead
         });
 
         partialDataSentRef.current = true;
@@ -112,7 +145,7 @@ export default function Onboarding() {
         console.error("Failed to send partial data:", error);
       }
     },
-    [session, step1Data, step2Data, step3Data, billFiles]
+    [session, step1Data, step2Data, step3Data, billFiles, utms, firstTouch, lastTouch, trackLead]
   );
 
   // Send partial data on page exit/unload
@@ -259,7 +292,19 @@ export default function Onboarding() {
           userId: session.user.id,
           billCount: billFiles.length,
           bills: billsInfo,
+          // UTM tracking data
+          ...utms,
+          utm_first_touch: firstTouch,
+          utm_last_touch: lastTouch,
         }),
+      });
+
+      // Track Facebook Pixel CompleteRegistration event
+      trackCompleteRegistration({
+        content_name: 'Onboarding Completed',
+        value: 150, // Estimated lead value in USD
+        currency: 'USD',
+        status: 'completed',
       });
 
       completedDataSentRef.current = true;
@@ -278,8 +323,8 @@ export default function Onboarding() {
     }
   };
 
-  // Show loading while checking auth
-  if (isPending) {
+  // Show loading while checking auth or existing lead
+  if (isPending || isCheckingLead) {
     return (
       <Layout>
         <div className="min-h-screen flex items-center justify-center">
