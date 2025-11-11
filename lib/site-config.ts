@@ -17,7 +17,7 @@ export const siteConfig = {
   // Contact Information
   contact: {
     email: {
-      general: "hinfo@mx.zencommunitysolar.com",
+      general: "info@mx.zencommunitysolar.com",
     },
     phone: {
       display: "(+1) 917-764-3897",
