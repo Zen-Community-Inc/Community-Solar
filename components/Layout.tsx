@@ -155,14 +155,14 @@ const Layout = ({ children }: LayoutProps) => {
                 <Button
                   onClick={() => setSignInModalOpen(true)}
                   variant="outline"
-                  className="hidden lg:block rounded-lg border-2 border-gray-300 px-5 py-2.5 text-sm font-semibold text-gray-700 hover:border-yellow-400 hover:bg-yellow-50 transition-all"
+                  className="hidden lg:inline-flex rounded-lg px-5 text-sm"
                 >
                   Sign In
                 </Button>
                 <Button
                   asChild
                   variant="primary"
-                  className="hidden lg:inline-flex rounded-lg px-5 py-2.5 text-sm"
+                  className="hidden lg:inline-flex rounded-lg px-5 text-sm"
                 >
                   <Link href="/contact">Get a Quote</Link>
                 </Button>
@@ -201,7 +201,8 @@ const Layout = ({ children }: LayoutProps) => {
                       <Button
                         asChild
                         variant="primary"
-                        className="mt-4 rounded-lg px-6 py-3 text-base"
+                        size="lg"
+                        className="mt-4 rounded-lg px-6 text-base"
                       >
                         <Link
                           href="/dashboard"
@@ -230,14 +231,16 @@ const Layout = ({ children }: LayoutProps) => {
                           setSignInModalOpen(true);
                         }}
                         variant="outline"
-                        className="mt-4 w-full rounded-lg px-6 py-3 text-base"
+                        size="lg"
+                        className="mt-4 w-full rounded-lg px-6 text-base"
                       >
                         Sign In
                       </Button>
                       <Button
                         asChild
                         variant="primary"
-                        className="rounded-lg px-6 py-3 text-base"
+                        size="lg"
+                        className="rounded-lg px-6 text-base"
                       >
                         <Link
                           href="/contact"
