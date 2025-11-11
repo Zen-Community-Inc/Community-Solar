@@ -6,10 +6,10 @@ export default function Privacy() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-16 sm:py-20 bg-gradient-to-br from-yellow-50/80 via-white to-yellow-50/50">
+      <section className="relative section-lg bg-gradient-to-br from-yellow-50/80 via-white to-yellow-50/50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="flex items-center justify-center w-12 h-12 bg-yellow-100 rounded-lg">
+            <div className="flex items-center justify-center w-12 h-12 bg-yellow-100 rounded-full">
               <Shield className="h-6 w-6 text-yellow-600" />
             </div>
             <h1 className="text-4xl sm:text-5xl font-bold text-gray-900">Privacy Policy</h1>
@@ -24,7 +24,7 @@ export default function Privacy() {
       </section>
 
       {/* Content */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 section-md space-y-12">
         <div className="prose prose-lg max-w-none space-y-6 text-muted-foreground">
 
           <section className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm">

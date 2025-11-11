@@ -50,14 +50,14 @@ export default function About() {
         />
 
         {/* Stats Section */}
-        <section className="py-12 sm:py-16 bg-white">
+        <section className="section-md bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <StatsGrid stats={stats} columns={4} variant="shadow" />
           </div>
         </section>
 
         {/* Mission Section */}
-        <section className="py-16 sm:py-20 bg-gradient-to-br from-yellow-400/5 via-transparent to-yellow-400/5">
+        <section className="section-lg bg-gradient-to-br from-yellow-400/5 via-transparent to-yellow-400/5">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-yellow-300/20 rounded-full mb-4">
@@ -77,7 +77,7 @@ export default function About() {
         </section>
 
         {/* Values Section */}
-        <section className="py-16 sm:py-20 bg-white">
+        <section className="section-lg bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
@@ -102,7 +102,7 @@ export default function About() {
         </section>
 
         {/* Coverage Areas */}
-        <section className="py-16 sm:py-20 bg-gradient-to-br from-yellow-50/80 via-white to-yellow-50/50">
+        <section className="section-lg bg-gradient-to-br from-yellow-50/80 via-white to-yellow-50/50">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
@@ -120,7 +120,7 @@ export default function About() {
                 >
                   <CardContent className="pt-6">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="flex items-center justify-center w-12 h-12 bg-yellow-300/20 rounded-lg">
+                      <div className="flex items-center justify-center w-12 h-12 bg-yellow-300/20 rounded-full">
                         <area.icon className="h-6 w-6 text-yellow-600" />
                       </div>
                       <h3 className="text-xl font-bold text-gray-900">

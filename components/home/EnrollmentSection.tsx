@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 export default function EnrollmentSection() {
   return (
-    <section id="how-it-works" className="scroll-mt-20 py-20 bg-muted">
+    <section id="how-it-works" className="scroll-mt-20 section-xl bg-muted">
       <div className="max-w-7xl mx-auto px-4">
         <header className="text-center mb-12 sm:mb-16">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">
@@ -47,10 +47,10 @@ export default function EnrollmentSection() {
             Ready to lower your energy costs? Choose the option that best fits your needs.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Button asChild size="lg" className="rounded-2xl bg-yellow-400 hover:bg-yellow-400/90 text-gray-900">
+            <Button asChild size="lg" variant="primary" className="rounded-lg">
               <Link href="/onboarding">Get started</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="rounded-2xl">
+            <Button asChild size="lg" variant="outline" className="rounded-lg">
               <Link href="/contact">Contact us</Link>
             </Button>
           </div>

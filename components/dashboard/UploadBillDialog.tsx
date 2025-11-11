@@ -164,7 +164,7 @@ export default function UploadBillDialog({
                         <Image
                           src={uploadedFile.preview}
                           alt={uploadedFile.file.name}
-                          className="w-10 h-10 object-cover rounded"
+                          className="w-10 h-10 object-cover rounded-md"
                         />
                       ) : (
                         <FileText className="w-10 h-10 text-red-500" />

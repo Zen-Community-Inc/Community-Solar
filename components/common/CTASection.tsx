@@ -61,7 +61,7 @@ export default function CTASection({
   return (
     <section
       className={cn(
-        "py-16 sm:py-20",
+        "section-lg",
         variantClasses[variant],
         className
       )}
@@ -90,8 +90,9 @@ export default function CTASection({
             {primaryButton && (
               <Button
                 size="lg"
+                variant="primary"
                 onClick={primaryButton.onClick}
-                className="rounded-md shadow-lg h-14 text-base px-8 text-accent-foreground bg-yellow-300 hover:bg-yellow-400"
+                className="rounded-lg h-14 text-base px-8"
               >
                 {primaryButton.text}
               </Button>
@@ -105,7 +106,7 @@ export default function CTASection({
                     <Button
                       size="lg"
                       variant="outline"
-                      className="rounded-md h-14 text-base px-8 border-2 hover:bg-gray-50"
+                      className="rounded-lg h-14 text-base px-8"
                     >
                       {secondaryButton.text}
                     </Button>
@@ -115,7 +116,7 @@ export default function CTASection({
                     size="lg"
                     variant="outline"
                     onClick={secondaryButton.onClick}
-                    className="rounded-md h-14 text-base px-8 border-2 hover:bg-gray-50"
+                    className="rounded-lg h-14 text-base px-8"
                   >
                     {secondaryButton.text}
                   </Button>

@@ -171,7 +171,7 @@ export default function Dashboard() {
     const badge = badges[status];
     return (
       <span
-        className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border ${badge.color}`}
+        className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium border ${badge.color}`}
       >
         {badge.text}
       </span>
@@ -199,7 +199,7 @@ export default function Dashboard() {
   if (!lead) {
     return (
       <Layout>
-        <div className="min-h-screen bg-gradient-to-b from-yellow-50/30 to-white py-12">
+        <div className="min-h-screen bg-gradient-to-b from-yellow-50/30 to-white section-md">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
               <div>
@@ -282,7 +282,7 @@ export default function Dashboard() {
   // Show full dashboard with lead data
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-to-b from-yellow-50/30 to-white py-8 sm:py-12">
+      <div className="min-h-screen bg-gradient-to-b from-yellow-50/30 to-white section-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">

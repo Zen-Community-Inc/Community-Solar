@@ -159,12 +159,13 @@ const Layout = ({ children }: LayoutProps) => {
                 >
                   Sign In
                 </Button>
-                <Link
-                  href="/contact"
-                  className="hidden lg:block rounded-lg bg-yellow-400 px-5 py-2.5 text-sm font-semibold text-gray-900 hover:bg-yellow-500 transition-all shadow-md hover:shadow-lg"
+                <Button
+                  asChild
+                  variant="primary"
+                  className="hidden lg:inline-flex rounded-lg px-5 py-2.5 text-sm"
                 >
-                  Get a Quote
-                </Link>
+                  <Link href="/contact">Get a Quote</Link>
+                </Button>
               </>
             )}
 
@@ -176,7 +177,7 @@ const Layout = ({ children }: LayoutProps) => {
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-white">
                 <SheetHeader>
                   <SheetTitle>Menu</SheetTitle>
                 </SheetHeader>
@@ -197,20 +198,25 @@ const Layout = ({ children }: LayoutProps) => {
                   ))}
                   {session?.user ? (
                     <>
-                      <Link
-                        href="/dashboard"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="mt-4 rounded-xl bg-yellow-400 px-6 py-3 text-center text-base font-semibold text-gray-900 hover:bg-yellow-500"
+                      <Button
+                        asChild
+                        variant="primary"
+                        className="mt-4 rounded-lg px-6 py-3 text-base"
                       >
-                        Dashboard
-                      </Link>
+                        <Link
+                          href="/dashboard"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          Dashboard
+                        </Link>
+                      </Button>
                       <Button
                         onClick={() => {
                           setMobileMenuOpen(false);
                           handleSignOut();
                         }}
                         variant="outline"
-                        className="w-full border-2"
+                        className="w-full rounded-lg"
                       >
                         <LogOut className="mr-2 h-4 w-4" />
                         Sign Out
@@ -224,17 +230,22 @@ const Layout = ({ children }: LayoutProps) => {
                           setSignInModalOpen(true);
                         }}
                         variant="outline"
-                        className="mt-4 w-full rounded-xl border-2 px-6 py-3 text-base font-semibold"
+                        className="mt-4 w-full rounded-lg px-6 py-3 text-base"
                       >
                         Sign In
                       </Button>
-                      <Link
-                        href="/contact"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="rounded-xl bg-yellow-400 px-6 py-3 text-center text-base font-semibold text-gray-900 hover:bg-yellow-500"
+                      <Button
+                        asChild
+                        variant="primary"
+                        className="rounded-lg px-6 py-3 text-base"
                       >
-                        Get a quote
-                      </Link>
+                        <Link
+                          href="/contact"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          Get a quote
+                        </Link>
+                      </Button>
                     </>
                   )}
                 </nav>
@@ -248,7 +259,7 @@ const Layout = ({ children }: LayoutProps) => {
         {children}
       </main>
 
-      <footer className="border-t border-gray-200 bg-gradient-to-br from-gray-50 to-white py-12 sm:py-16 mt-auto w-full">
+      <footer className="border-t border-gray-200 bg-gradient-to-br from-gray-50 to-white section-md mt-auto w-full">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             {/* Brand Column */}

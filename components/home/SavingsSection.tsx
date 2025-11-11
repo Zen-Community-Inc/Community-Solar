@@ -2,7 +2,7 @@ import SavingsCalculator from "@/components/SavingsCalculator";
 
 export default function SavingsSection() {
   return (
-    <section className="py-8 sm:py-12 px-4 sm:px-6 bg-gradient-to-br from-yellow-400/5 to-background rounded-2xl sm:rounded-3xl">
+    <section className="section-sm px-4 sm:px-6 bg-gradient-to-br from-yellow-400/5 to-background rounded-2xl sm:rounded-3xl">
       <div className="grid gap-8 sm:gap-12 lg:grid-cols-2 items-center">
         <div className="space-y-4 sm:space-y-6 order-2 lg:order-1">
           <SavingsCalculator />

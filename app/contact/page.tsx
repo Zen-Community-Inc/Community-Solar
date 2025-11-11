@@ -130,7 +130,7 @@ export default function Contact() {
         />
 
         {/* Contact Info Cards */}
-        <section className="py-12 sm:py-16 bg-white">
+        <section className="section-md bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12">
               {contactInfo.map((contact, index) => (
@@ -310,8 +310,9 @@ export default function Contact() {
                     <Button
                       type="submit"
                       size="lg"
+                      variant="primary"
                       disabled={isSubmitting}
-                      className="w-full bg-yellow-300 hover:bg-yellow-400 text-gray-900 font-semibold shadow-lg h-12 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full rounded-lg h-12 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isSubmitting
                         ? contactContent.form.submittingButton

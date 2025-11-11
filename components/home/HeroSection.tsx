@@ -46,8 +46,9 @@ export default function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <Button
               size="lg"
+              variant="primary"
               onClick={() => setSignInModalOpen(true)}
-              className="rounded-md shadow-lg h-14 text-base px-8 text-accent-foreground bg-yellow-300 hover:bg-yellow-400/60"
+              className="rounded-lg h-14 text-base px-8"
             >
               {homeContent.hero.primaryButton.text}
             </Button>
@@ -55,7 +56,7 @@ export default function HeroSection() {
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-md shadow-lg h-14 text-base px-8 bg-white hover:bg-gray-50 backdrop-blur-sm text-foreground border-2"
+                className="rounded-lg h-14 text-base px-8"
               >
                 {homeContent.hero.secondaryButton.text}
               </Button>

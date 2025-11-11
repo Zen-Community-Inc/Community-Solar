@@ -129,7 +129,7 @@ export default function Step4BillUpload({ onNext, onBack }: Step4Props) {
                       alt={uploadedFile.file.name}
                       width={48}
                       height={48}
-                      className="w-12 h-12 object-cover rounded"
+                      className="w-12 h-12 object-cover rounded-md"
                     />
                   ) : (
                     <FileText className="w-12 h-12 text-red-500" />

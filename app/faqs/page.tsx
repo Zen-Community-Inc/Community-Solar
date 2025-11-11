@@ -27,7 +27,7 @@ export default function FAQs() {
   return (
     <Layout>
       <div className="min-h-screen bg-gradient-to-b from-yellow-50/30 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 lg:space-y-16 py-8 lg:py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 lg:space-y-16 section-sm">
           <FAQHero searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
           <FAQQuickLinks categories={faqCategories} />

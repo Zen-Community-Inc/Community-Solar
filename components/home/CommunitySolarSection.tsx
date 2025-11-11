@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export default function CommunitySolarSection() {
   return (
-    <section className="py-4 sm:py-8 px-0">
+    <section className="section-sm px-0">
       <div className="grid gap-8 sm:gap-12 lg:grid-cols-2 items-center">
         <div className="space-y-4 sm:space-y-6">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">

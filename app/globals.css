@@ -1,26 +1,11 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -64,54 +49,6 @@
   --border: 0 0% 90%;
   --input: 0 0% 92%;
   --ring: 48 96% 58%;
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: 0 0% 98%;
-  --sidebar-foreground: 240 5.3% 26.1%;
-  --sidebar-primary: 240 5.9% 10%;
-  --sidebar-primary-foreground: 0 0% 98%;
-  --sidebar-accent: 240 4.8% 95.9%;
-  --sidebar-accent-foreground: 240 5.9% 10%;
-  --sidebar-border: 220 13% 91%;
-  --sidebar-ring: 217.2 91.2% 59.8%;
-}
-
-.dark {
-  --background: 0 0% 8%;
-  --foreground: 0 0% 98%;
-  --card: 0 0% 10%;
-  --card-foreground: 0 0% 98%;
-  --popover: 0 0% 10%;
-  --popover-foreground: 0 0% 98%;
-  --primary: 0 0% 95%;
-  --primary-foreground: 0 0% 10%;
-  --secondary: 0 0% 15%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 0 0% 15%;
-  --muted-foreground: 0 0% 65%;
-  --accent: 48 96% 58%;
-  --accent-foreground: 0 0% 10%;
-  --destructive: 0 63% 31%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 18%;
-  --input: 0 0% 18%;
-  --ring: 48 96% 58%;
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: 240 5.9% 10%;
-  --sidebar-foreground: 240 4.8% 95.9%;
-  --sidebar-primary: 224.3 76.3% 48%;
-  --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 240 3.7% 15.9%;
-  --sidebar-accent-foreground: 240 4.8% 95.9%;
-  --sidebar-border: 240 3.7% 15.9%;
-  --sidebar-ring: 217.2 91.2% 59.8%;
 }
 
 @layer base {
@@ -131,21 +68,85 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold;
-  }
-
-  /* Touch-friendly interactive elements */
-  button, a, [role="button"] {
-    @apply min-h-[44px];
+    @apply font-bold;
   }
 
   /* Smooth scrolling for anchor links */
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
 
-  /* Prevent text size adjustment on orientation change */
-  html {
-    -webkit-text-size-adjust: 100%;
+  /* Performance optimization: Use GPU acceleration for animations */
+  @media (prefers-reduced-motion: no-preference) {
+    * {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Utility Classes from Design System */
+@layer utilities {
+  /* Section Spacing */
+  .section-sm {
+    @apply py-8 sm:py-12;
+  }
+
+  .section-md {
+    @apply py-12 sm:py-16;
+  }
+
+  .section-lg {
+    @apply py-16 sm:py-20;
+  }
+
+  .section-xl {
+    @apply py-20 sm:py-24;
+  }
+
+  /* Transition Presets */
+  .transition-interactive {
+    @apply transition-colors duration-200;
+  }
+
+  .transition-card {
+    @apply transition-all duration-300;
+  }
+
+  .transition-smooth {
+    @apply transition-all duration-500 ease-out;
+  }
+
+  /* Typography Helpers */
+  .heading-1 {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight;
+  }
+
+  .heading-2 {
+    @apply text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight;
+  }
+
+  .heading-3 {
+    @apply text-xl sm:text-2xl font-semibold;
+  }
+
+  .body-lg {
+    @apply text-base sm:text-lg leading-relaxed;
+  }
+
+  .body {
+    @apply text-sm sm:text-base leading-normal;
   }
 }

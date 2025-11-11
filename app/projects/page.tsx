@@ -8,7 +8,7 @@ export default function Projects() {
     <Layout>
       <div className="min-h-screen">
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+        <section className="section-xl bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               Our Solar Farm Portfolio
@@ -20,7 +20,7 @@ export default function Projects() {
         </section>
 
         {/* Portfolio Stats */}
-        <section className="py-16 bg-muted">
+        <section className="section-lg bg-muted">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {[
@@ -41,7 +41,7 @@ export default function Projects() {
         </section>
 
         {/* Map Section */}
-        <section className="py-16 bg-background">
+        <section className="section-lg bg-background">
           <div className="max-w-7xl mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-8">Project Locations</h2>
             <Card>
@@ -60,7 +60,7 @@ export default function Projects() {
         </section>
 
         {/* Projects Grid */}
-        <section className="py-16 bg-muted">
+        <section className="section-lg bg-muted">
           <div className="max-w-7xl mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12">Featured Projects</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

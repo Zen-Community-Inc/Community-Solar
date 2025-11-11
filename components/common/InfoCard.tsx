@@ -58,7 +58,7 @@ export default function InfoCard({
         {/* Icon */}
         <div
           className={cn(
-            "flex items-center justify-center w-12 h-12 rounded-lg mb-4",
+            "flex items-center justify-center w-12 h-12 rounded-full mb-4",
             iconBgColor
           )}
         >

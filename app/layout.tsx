@@ -34,12 +34,16 @@ export default function RootLayout({
           </UTMProvider>
         </Suspense>
 
-        {/* GoHighLevel AI Chat Widget */}
+        {/* Zapier AI Chat Widget */}
         <Script
-          src="https://widgets.leadconnectorhq.com/loader.js"
-          data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
-          data-widget-id="690b8cab7907ec12811038fe"
+          src="https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js"
+          type="module"
           strategy="lazyOnload"
+        />
+        <div
+          dangerouslySetInnerHTML={{
+            __html: `<zapier-interfaces-chatbot-embed is-popup="true" chatbot-id="cmhun8v2b001a137m30aybwqv"></zapier-interfaces-chatbot-embed>`,
+          }}
         />
       </body>
     </html>

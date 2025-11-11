@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function WhyChooseUsSection() {
   return (
-    <section className="py-8 sm:py-12 px-4 sm:px-6 max-w-7xl mx-auto bg-gradient-to-br from-yellow-400/5 via-transparent to-yellow-400/5 rounded-2xl sm:rounded-3xl">
+    <section className="section-sm px-4 sm:px-6 max-w-7xl mx-auto bg-gradient-to-br from-yellow-400/5 via-transparent to-yellow-400/5 rounded-2xl sm:rounded-3xl">
       <header className="text-center mb-12 sm:mb-16">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">
           Why leading organizations choose us

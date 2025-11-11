@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function IndustrySolutionsSection() {
   return (
-    <section className="py-8 sm:py-12 px-4 sm:px-0 max-w-7xl mx-auto">
+    <section className="section-sm px-4 sm:px-0 max-w-7xl mx-auto">
       <header className="text-center mb-12 sm:mb-16">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">
           Tailored solutions for your industry
