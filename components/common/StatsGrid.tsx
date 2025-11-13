@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
  * ```tsx
  * <StatsGrid
  *   stats={[
- *     { label: "Subscribers", value: "10,000+", icon: Users },
+ *     { label: "Subscribers", value: "50,000+", icon: Users },
  *     { label: "Savings", value: "10-20%", color: "yellow" }
  *   ]}
  *   columns={4}

@@ -9,7 +9,7 @@ import { Heart, Shield, Users, Zap } from "lucide-react";
 
 export const aboutContent = {
   hero: {
-    badge: "Trusted by 10,000+ subscribers across Illinois",
+    badge: "Trusted by 50,000+ subscribers across Illinois",
     title: "Powering Illinois with Clean, Affordable Energy",
     subtitle: "We're on a mission to make renewable energy accessible to everyone in Illinois, regardless of income, property type, or location.",
   },

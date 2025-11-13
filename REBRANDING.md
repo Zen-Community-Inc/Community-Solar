@@ -139,7 +139,7 @@ service: {
 
 ```typescript
 stats: {
-  subscribers: string;      // "10,000+"
+  subscribers: string;      // "50,000+"
   energyGenerated: string;  // "18.9 million kWh"
   co2Avoided: string;       // "13,400 metric tons"
   reviewCount: string;      // "1,200+"

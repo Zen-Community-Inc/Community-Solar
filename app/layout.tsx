@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: "Zen Community Solar - Affordable Clean Energy for Illinois",
     template: "%s | Zen Community Solar",
   },
-  description: "Join 10,000+ Illinois residents saving 10-20% on electricity with community solar. No installation, no upfront costs. Enroll today!",
+  description: "Join 50,000+ Illinois residents saving 10-20% on electricity with community solar. No installation, no upfront costs. Enroll today!",
   keywords: [
     "community solar",
     "Illinois solar energy",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     url: "https://zencommunitysolar.com",
     siteName: "Zen Community Solar",
     title: "Zen Community Solar - Affordable Clean Energy for Illinois",
-    description: "Join 10,000+ Illinois residents saving 10-20% on electricity with community solar. No installation, no upfront costs. Enroll today!",
+    description: "Join 50,000+ Illinois residents saving 10-20% on electricity with community solar. No installation, no upfront costs. Enroll today!",
     images: [
       {
         url: "/og-image.jpg",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Zen Community Solar - Affordable Clean Energy for Illinois",
-    description: "Join 10,000+ Illinois residents saving 10-20% on electricity with community solar. No installation, no upfront costs.",
+    description: "Join 50,000+ Illinois residents saving 10-20% on electricity with community solar. No installation, no upfront costs.",
     images: ["/og-image.jpg"],
   },
   robots: {

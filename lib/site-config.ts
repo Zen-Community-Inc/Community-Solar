@@ -61,7 +61,7 @@ export const siteConfig = {
 
   // Business Metrics & Stats
   stats: {
-    subscribers: "10,000+",
+    subscribers: "50,000+",
     energyGenerated: "18.9 million kWh",
     energyGeneratedShort: "18.9M", // For display in stats sections
     co2Avoided: "13,400 metric tons",

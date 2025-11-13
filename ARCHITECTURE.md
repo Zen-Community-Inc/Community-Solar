@@ -170,7 +170,7 @@ Reusable hero section for pages.
 import PageHero from "@/components/common/PageHero";
 
 <PageHero
-  badge="Trusted by 10,000+ customers"
+  badge="Trusted by 50,000+ customers"
   title="About Our Company"
   subtitle="Learn about our mission and values"
   variant="gradient"
@@ -207,7 +207,7 @@ import StatsGrid from "@/components/common/StatsGrid";
 import { Users, Zap } from "lucide-react";
 
 const stats = [
-  { label: "Customers", value: "10,000+", icon: Users },
+  { label: "Customers", value: "50,000+", icon: Users },
   { label: "Savings", value: "15%", color: "yellow" }
 ];
 
@@ -369,7 +369,7 @@ import { siteConfig } from '@/lib/site-config';
 const stats = [
   {
     label: "Subscribers",
-    value: siteConfig.stats.subscribers, // "10,000+"
+    value: siteConfig.stats.subscribers, // "50,000+"
   },
 ];
 ```

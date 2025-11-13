@@ -7,7 +7,7 @@ export const seoConfig = {
   siteName: "Zen Community Solar",
   defaultTitle: "Zen Community Solar - Affordable Clean Energy for Illinois",
   defaultDescription:
-    "Join 10,000+ Illinois residents saving 10-20% on electricity with community solar. No installation, no upfront costs. Enroll today!",
+    "Join 50,000+ Illinois residents saving 10-20% on electricity with community solar. No installation, no upfront costs. Enroll today!",
   ogImage: "/og-image.jpg",
 };
 
@@ -65,7 +65,7 @@ export const pageMetadata = {
   home: {
     title: "Affordable Clean Energy for Illinois",
     description:
-      "Join 10,000+ Illinois residents saving 10-20% on electricity with community solar. No installation, no upfront costs. Enroll today!",
+      "Join 50,000+ Illinois residents saving 10-20% on electricity with community solar. No installation, no upfront costs. Enroll today!",
     keywords: [
       "community solar Illinois",
       "solar energy savings",
@@ -79,7 +79,7 @@ export const pageMetadata = {
   about: {
     title: "About Us - Leading Community Solar Provider in Illinois",
     description:
-      "Learn about Zen Community Solar's mission to make clean energy accessible to all Illinois residents. 10,000+ subscribers, 15+ MW capacity.",
+      "Learn about Zen Community Solar's mission to make clean energy accessible to all Illinois residents. 50,000+ subscribers, 15+ MW capacity.",
     keywords: [
       "community solar company",
       "Illinois solar provider",

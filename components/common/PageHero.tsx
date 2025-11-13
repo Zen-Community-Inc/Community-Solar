@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
  * @example
  * ```tsx
  * <PageHero
- *   badge="Trusted by 10,000+ subscribers"
+ *   badge="Trusted by 50,000+ subscribers"
  *   title="About Us"
  *   subtitle="Learn about our mission"
  *   variant="gradient"

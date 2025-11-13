@@ -7,7 +7,7 @@
 
 export const homeContent = {
   hero: {
-    badge: "Trusted by 10,000+ subscribers",
+    badge: "Trusted by 50,000+ subscribers",
     headline: "Lower your operating costs with local community solar",
     subheadline: "Enroll your properties or business accounts to receive utility bill credits—no rooftop installs, no CapEx, month‑to‑month terms.",
     primaryButton: {
