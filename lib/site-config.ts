@@ -20,8 +20,8 @@ export const siteConfig = {
       general: "info@mx.zencommunitysolar.com",
     },
     phone: {
-      display: "(+1) 917-764-3897",
-      raw: "+19177643897", // For tel: links
+      display: "(+1) 850-719-7771",
+      raw: "+18507197771", // For tel: links
     },
     address: {
       city: "Miramar",

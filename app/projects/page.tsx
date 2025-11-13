@@ -2,6 +2,9 @@ import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { mockProjects } from "@/lib/mock-data";
+import { generatePageMetadata, pageMetadata } from "@/lib/seo-config";
+
+export const metadata = generatePageMetadata(pageMetadata.projects);
 
 export default function Projects() {
   return (
