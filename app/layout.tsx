@@ -7,6 +7,8 @@ import { Suspense } from "react";
 import { UTMProvider } from "@/components/providers/UTMProvider";
 import { FacebookPixelProvider } from "@/components/providers/FacebookPixelProvider";
 import { OrganizationStructuredData } from "@/components/StructuredData";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,12 +16,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://zencommunitysolar.com'),
+  metadataBase: new URL("https://zencommunitysolar.com"),
   title: {
     default: "Zen Community Solar - Affordable Clean Energy for Illinois",
     template: "%s | Zen Community Solar",
   },
-  description: "Join 50,000+ Illinois residents saving 10-20% on electricity with community solar. No installation, no upfront costs. Enroll today!",
+  description:
+    "Join 50,000+ Illinois residents saving 10-20% on electricity with community solar. No installation, no upfront costs. Enroll today!",
   keywords: [
     "community solar",
     "Illinois solar energy",
@@ -46,7 +49,8 @@ export const metadata: Metadata = {
     url: "https://zencommunitysolar.com",
     siteName: "Zen Community Solar",
     title: "Zen Community Solar - Affordable Clean Energy for Illinois",
-    description: "Join 50,000+ Illinois residents saving 10-20% on electricity with community solar. No installation, no upfront costs. Enroll today!",
+    description:
+      "Join 50,000+ Illinois residents saving 10-20% on electricity with community solar. No installation, no upfront costs. Enroll today!",
     images: [
       {
         url: "/og-image.jpg",
@@ -59,7 +63,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Zen Community Solar - Affordable Clean Energy for Illinois",
-    description: "Join 50,000+ Illinois residents saving 10-20% on electricity with community solar. No installation, no upfront costs.",
+    description:
+      "Join 50,000+ Illinois residents saving 10-20% on electricity with community solar. No installation, no upfront costs.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -68,13 +73,13 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   verification: {
-    google: 'your-google-verification-code',
+    google: "your-google-verification-code",
     // yandex: 'your-yandex-verification-code',
     // bing: 'your-bing-verification-code',
   },
@@ -91,6 +96,8 @@ export default function RootLayout({
         <OrganizationStructuredData />
       </head>
       <body className={`${inter.variable} antialiased`}>
+        <Analytics />
+        <SpeedInsights />
         <Suspense fallback={null}>
           <UTMProvider>
             <FacebookPixelProvider>
