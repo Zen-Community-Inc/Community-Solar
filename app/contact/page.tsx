@@ -20,11 +20,11 @@ import { toast } from "sonner";
 import { siteConfig } from "@/lib/site-config";
 import { contactContent } from "@/lib/content/contact-content";
 import { useUTM } from "@/hooks/useUTM";
-import { useFacebookPixel } from "@/hooks/useFacebookPixel";
+// import { useFacebookPixel } from "@/hooks/useFacebookPixel";
 
 export default function Contact() {
   const { utms, firstTouch, lastTouch } = useUTM();
-  const { trackContact } = useFacebookPixel();
+  // const { trackContact } = useFacebookPixel();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -62,7 +62,7 @@ export default function Contact() {
       }
 
       // Track Facebook Pixel Contact event
-      trackContact({ content_name: 'Contact Form' });
+      // trackContact({ content_name: 'Contact Form' });
 
       toast.success("Thank you! We'll be in touch within 24 hours.");
       setIsSubmitted(true);

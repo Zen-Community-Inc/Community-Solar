@@ -26,7 +26,7 @@ export default function Onboarding() {
   const router = useRouter();
   const { data: session, isPending } = useSession();
   const { utms, firstTouch, lastTouch } = useUTM();
-  const { trackLead, trackCompleteRegistration } = useFacebookPixel();
+  const { trackLead, trackSubmitApplication, trackCompleteRegistration } = useFacebookPixel();
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -183,11 +183,11 @@ export default function Onboarding() {
         }
 
         // Track Facebook Pixel Lead event (partial)
-        trackLead({
-          content_name: `Onboarding Partial - Step ${step}`,
-          status: 'partial',
-          value: 0, // No value for partial lead
-        });
+        // trackLead({
+        //   content_name: `Onboarding Partial - Step ${step}`,
+        //   status: 'partial',
+        //   value: 0, // No value for partial lead
+        // });
 
         partialDataSentRef.current = true;
       } catch (error) {
@@ -289,6 +289,13 @@ export default function Onboarding() {
         throw new Error("Failed to submit onboarding data");
       }
 
+      // Track Facebook Pixel SubmitApplication event (after form submission, before bill upload)
+      trackSubmitApplication({
+        content_name: 'Onboarding Form Submitted',
+        // value: 100, // Estimated value for application submission
+        // currency: 'USD',
+      });
+
       // NOW upload bills after Lead is created
       let billsData: Array<{
         fileName: string;
@@ -364,13 +371,18 @@ export default function Onboarding() {
         body: JSON.stringify(webhookPayload),
       });
 
-      // Track Facebook Pixel CompleteRegistration event
-      trackCompleteRegistration({
-        content_name: 'Onboarding Completed',
-        value: 150, // Estimated lead value in USD
-        currency: 'USD',
-        status: 'completed',
-      });
+      // Track Facebook Pixel CompleteRegistration event (only if at least one bill uploaded successfully)
+      if (billsData.length > 0) {
+        trackCompleteRegistration({
+          content_name: 'Onboarding Completed with Bill Upload',
+          status: 'completed',
+        });
+      } else if (billFiles.length > 0) {
+        // User selected bills but all uploads failed - log warning
+        if (process.env.NODE_ENV === 'development') {
+          console.warn('[Onboarding] CompleteRegistration not tracked: all bill uploads failed');
+        }
+      }
 
       completedDataSentRef.current = true;
 

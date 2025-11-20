@@ -129,9 +129,37 @@ export function useFacebookPixel() {
   };
 
   /**
+   * Track SubmitApplication event
+   *
+   * Use this when user submits the onboarding form (before bill upload).
+   *
+   * @param data - Optional event data (value, currency, content_name)
+   */
+  const trackSubmitApplication = async (data?: {
+    value?: number;
+    currency?: string;
+    content_name?: string;
+  }) => {
+    if (typeof window === 'undefined') return;
+
+    const customData = buildCustomData(data);
+
+    try {
+      const { default: ReactPixel } = await import('react-facebook-pixel');
+      ReactPixel.track('SubmitApplication', customData);
+
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Facebook Pixel: SubmitApplication tracked', customData);
+      }
+    } catch (error) {
+      console.error('Failed to track SubmitApplication event:', error);
+    }
+  };
+
+  /**
    * Track CompleteRegistration event
    *
-   * Use this when user completes full onboarding.
+   * Use this when user completes full onboarding (after bill upload).
    *
    * @param data - Optional event data (value, currency, content_name, status)
    */
@@ -185,6 +213,7 @@ export function useFacebookPixel() {
   return {
     trackLead,
     trackContact,
+    trackSubmitApplication,
     trackCompleteRegistration,
     trackCustomEvent,
   };
